@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cho thuê xe máy Hữu Hào - Ultra Mini App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Cho thuê xe máy Hữu Hào - Giao xe tận nơi, thủ tục nhanh gọn, giá tốt, hỗ trợ 24/7 tại khu vực du lịch." />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --bg-soft-2: #111827;
+      --accent-1: #22d3ee;
+      --accent-2: #a855f7;
+      --accent-3: #f97316;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.2);
+      --radius-xl: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+      --blur-bg: blur(18px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 48%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout container */
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 16px 96px;
+    }
+
+    @media (min-width: 768px) {
+      .page-shell {
+        padding: 20px 20px 120px;
+      }
+    }
+
+    /* Glass card base */
+    .card-ultra {
+      background: linear-gradient(
+          135deg,
+          rgba(148, 163, 184, 0.16),
+          rgba(15, 23, 42, 0.92)
+        );
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      padding: 18px;
+      backdrop-filter: var(--blur-bg);
+    }
+
+    @media (min-width: 768px) {
+      .card-ultra {
+        padding: 24px;
+      }
+    }
+
+    /* Header / Logo / Menu */
+    .app-frame {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header-ultra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo-ultra {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: conic-gradient(
+        from 180deg,
+        var(--accent-1),
+        var(--accent-2),
+        var(--accent-3),
+        var(--accent-1)
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 1.5px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+    }
+
+    .logo-mark span {
+      position: relative;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #f9fafb, #e0f2fe);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    /* Desktop menu */
+    .nav-ultra {
+      display: none;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-ultra a {
+      position: relative;
+      color: var(--text-muted);
+      padding-bottom: 4px;
+    }
+
+    .nav-ultra a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      transition: width 0.22s ease;
+    }
+
+    .nav-ultra a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-ultra a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, #22d3ee, #2563eb);
+      color: #0b1120;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.6);
+    }
+
+    .nav-cta small {
+      opacity: 0.8;
+      font-size: 10px;
+    }
+
+    /* Mobile menu button */
+    .menu-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .menu-line {
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    }
+
+    /* Mobile nav drawer */
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      margin-top: 10px;
+    }
+
+    .nav-mobile a {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 6px 0;
+    }
+
+    .nav-mobile a span {
+      opacity: 0.7;
+      font-size: 11px;
+    }
+
+    .nav-mobile .nav-mobile-cta {
+      margin-top: 4px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+      color: #020617;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (min-width: 840px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .nav-ultra {
+        display: flex;
+      }
+
+      .nav-mobile {
+        display: none !important;
+      }
+    }
+
+    /* Hero Ultra */
+    .hero-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 840px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+        align-items: stretch;
+      }
+    }
+
+    .hero-main {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      padding: 20px 18px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #166534);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-pill strong {
+      color: var(--accent-1);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      line-height: 1.18;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 32px;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 430px;
+      margin-bottom: 16px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+      font-size: 11px;
+    }
+
+    .hero-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      color: var(--text-muted);
+    }
+
+    .hero-badge span {
+      color: var(--accent-1);
+      font-weight: 600;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      box-shadow: 0 18px 30px rgba(59, 130, 246, 0.7);
+    }
+
+    .btn-secondary {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020617);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-meta-label {
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-meta-value {
+      font-size: 12px;
+      color: var(--accent-1);
+    }
+
+    /* Hero side panel */
+    .hero-side {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top right, #111827, #020617);
+      padding: 16px 14px;
+      display: grid;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-side-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .hero-side-tagline {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .hero-side-tagline span {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-side-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 5px;
+      font-size: 11px;
+    }
+
+    .hero-stat {
+      padding: 9px 9px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .hero-stat-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .hero-stat-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-side-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-side-chip {
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+    }
+
+    .hero-side-chip span {
+      color: var(--accent-1);
+    }
+
+    .hero-side-call {
+      font-size: 12px;
+      color: var(--accent-1);
+      font-weight: 600;
+    }
+
+    /* Main body sections */
+    .body-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 960px) {
+      .body-grid {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      }
+    }
+
+    .section {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top, #020617, #020617);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .section-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--accent-1);
+    }
+
+    .section-body {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Features list */
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .feature-item {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 10px 10px 11px;
+      background: radial-gradient(circle at top, #020617, #030712);
+      font-size: 12px;
+    }
+
+    .feature-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-1);
+      margin-bottom: 4px;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    /* Pricing cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .price-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 10px 10px 11px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      font-size: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-chip {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .price-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .price-value {
+      font-size: 16px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 2px;
+    }
+
+    .price-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .price-cta {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--accent-1);
+      font-weight: 600;
+    }
+
+    /* Steps / Flow */
+    .steps-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .step-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: radial-gradient(circle at top, #020617, #020617);
+      color: var(--accent-1);
+      flex-shrink: 0;
+    }
+
+    .step-content strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Quick info column */
+    .info-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .info-item {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 9px 10px;
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--accent-1);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* Contact / Map */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr);
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 840px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      }
+    }
+
+    .contact-block {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 10px 10px 12px;
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .contact-main {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .contact-main span {
+      color: var(--accent-1);
+      font-weight: 600;
+    }
+
+    .contact-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .contact-phone {
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    .contact-phone a {
+      color: var(--accent-1);
+      font-weight: 700;
+    }
+
+    .map-placeholder {
+      margin-top: 6px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Footer Ultra */
+    .footer-ultra {
+      margin-top: 16px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 12px 14px;
+      background: radial-gradient(circle at bottom, #020617, #000);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-ultra-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .footer-ultra-left strong {
+      font-size: 12px;
+      color: var(--text-main);
+    }
+
+    .footer-ultra-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .footer-chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    /* Quick Call Ultra - floating button + bottom bar */
+    .quick-call-fab {
+      position: fixed;
+      right: 16px;
+      bottom: 90px;
+      z-index: 30;
+    }
+
+    .quick-call-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: radial-gradient(circle at top left, #22c55e, #16a34a);
+      color: #022c22;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 18px 45px rgba(22, 163, 74, 0.9);
+    }
+
+    .quick-call-btn small {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .quick-call-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 25;
+      padding: 8px 12px 10px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
+      border-top: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .quick-call-bar strong {
+      display: block;
+      font-size: 12px;
+      color: var(--text-main);
+    }
+
+    .quick-call-bar a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+    }
+
+    @media (min-width: 840px) {
+      .quick-call-bar {
+        max-width: 480px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        padding-inline: 18px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .quick-call-fab {
+        display: none;
+      }
+
+      .page-shell {
+        padding-bottom: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="app-frame card-ultra">
+      <!-- HEADER / LOGO / MINI-APP ULTRA -->
+      <header class="header-ultra">
+        <div class="logo-ultra">
+          <div class="logo-mark">
+            <span>UH</span>
+          </div>
+          <div class="logo-text">
+            <div class="logo-title">Hữu Hào Ultra</div>
+            <div class="logo-sub">Cho thuê xe máy mini-app</div>
+          </div>
+        </div>
+
+        <!-- Desktop menu -->
+        <nav class="nav-ultra">
+          <a href="#dich-vu">Dịch vụ</a>
+          <a href="#bang-gia">Bảng giá</a>
+          <a href="#quy-trinh">Quy trình</a>
+          <a href="#lien-he">Liên hệ</a>
+          <a href="tel:0845622012" class="nav-cta">
+            Gọi nhanh 0845 622 012
+          </a>
+        </nav>
+
+        <!-- Mobile menu toggle -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Mở menu">
+          <div class="menu-line"></div>
+          <div class="menu-line"></div>
+          <div class="menu-line"></div>
+        </button>
+      </header>
+
+      <!-- Mobile nav drawer -->
+      <nav class="nav-mobile" id="navMobile">
+        <a href="#dich-vu">Dịch vụ <span>Chi tiết dịch vụ & ưu đãi</span></a>
+        <a href="#bang-gia">Bảng giá <span>Giá theo ngày / dài hạn</span></a>
+        <a href="#quy-trinh">Quy trình <span>Đặt xe trong 3 bước</span></a>
+        <a href="#lien-he">Liên hệ <span>Địa chỉ & giờ hoạt động</span></a>
+        <a href="tel:0845622012" class="nav-mobile-cta">
+          📞 Gọi ngay: 0845 622 012
+        </a>
+      </nav>
+
+      <!-- HERO ULTRA -->
+      <section class="hero-grid">
+        <div class="hero-main">
+          <div class="hero-pill">
+            <div class="hero-pill-dot"></div>
+            <strong>HỮU HÀO ULTRA</strong>
+            <span>Cho thuê xe máy &amp; giao tận nơi</span>
+          </div>
+
+          <h1 class="hero-title">
+            Cho thuê xe máy <span class="highlight">Hữu Hào</span><br />
+            Gọi là có, chạy là mê.
+          </h1>
+
+          <p class="hero-subtitle">
+            Mini-app siêu gọn, đặt xe trong vài chạm. Giao &amp; nhận xe
+            tận nơi, xe mới – mạnh – tiết kiệm xăng, hỗ trợ khách 24/7.
+          </p>
+
+          <div class="hero-badges">
+            <div class="hero-badge">🔥 <span>Free giao nhận</span> trong bán kính cho phép</div>
+            <div class="hero-badge">🛵 Xe số &amp; tay ga đời mới</div>
+            <div class="hero-badge">🛡️ Kèm 02 nón bảo hiểm + áo mưa</div>
+          </div>
+
+          <div class="hero-cta-row">
+            <a href="tel:0845622012" class="btn-primary">
+              📞 Gọi đặt xe ngay
+              <span>0845 622 012</span>
+            </a>
+            <a href="#bang-gia" class="btn-secondary">
+              📋 Xem bảng giá nhanh
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Thời gian hoạt động</span>
+              <span class="hero-meta-value">07:00 – 22:00 mỗi ngày</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Khu vực phục vụ</span>
+              <span class="hero-meta-value">Khu du lịch &amp; trung tâm</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Kênh hỗ trợ</span>
+              <span class="hero-meta-value">Call / Zalo / Messenger</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero side - mini app status -->
+        <aside class="hero-side">
+          <div>
+            <div class="hero-side-title">Mini-app Ultra</div>
+            <div class="hero-side-tagline">
+              Trải nghiệm <span>đặt xe 3 bước</span> – không cần cài app.
+            </div>
+          </div>
+
+          <div class="hero-side-grid">
+            <div class="hero-stat">
+              <div class="hero-stat-label">Thời gian đặt</div>
+              <div class="hero-stat-value">~ 30s</div>
+              <div class="hero-stat-note">Bấm gọi là khoá xe cho bạn.</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Ưu đãi online</div>
+              <div class="hero-stat-value">-10%</div>
+              <div class="hero-stat-note">Áp dụng khách đặt qua mini-app.</div>
+            </div>
+          </div>
+
+          <div class="hero-side-footer">
+            <div class="hero-side-chip">
+              🛵 Có sẵn xe số, tay ga, xe mới êm máy.
+            </div>
+            <div class="hero-side-call">
+              Gọi: 0845 622 012
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- THÂN TRANG ULTRA -->
+      <main class="body-grid">
+        <!-- Cột trái: Dịch vụ + Bảng giá + Quy trình -->
+        <section class="section" id="dich-vu">
+          <div class="section-header">
+            <h2 class="section-title">Dịch vụ Hữu Hào</h2>
+            <span class="section-tag">Menu Ultra</span>
+          </div>
+          <div class="section-body">
+            Hữu Hào cung cấp dịch vụ cho thuê xe máy linh hoạt, phù hợp cho
+            khách du lịch, công tác và thuê dài ngày:
+            <div class="features-list">
+              <div class="feature-item">
+                <div class="feature-label">01 / Xe tay ga</div>
+                <div class="feature-title">Xe ga đời mới, tiết kiệm xăng</div>
+                Xe tay ga êm ái, khoẻ máy, phù hợp đi cặp đôi, đi dạo phố,
+                tham quan các điểm du lịch.
+              </div>
+              <div class="feature-item">
+                <div class="feature-label">02 / Xe số</div>
+                <div class="feature-title">Bền bỉ, leo dốc khỏe</div>
+                Xe số tiết kiệm, phù hợp đi đường xa, dốc, phượt nhẹ nhàng
+                quanh khu vực.
+              </div>
+              <div class="feature-item">
+                <div class="feature-label">03 / Giao xe tận nơi</div>
+                <div class="feature-title">Nhận xe ngay tại khách sạn</div>
+                Miễn phí hoặc phụ thu nhỏ tuỳ khoảng cách. Giao – nhận tận
+                tay, kiểm tra xe kỹ lưỡng trước khi bàn giao.
+              </div>
+              <div class="feature-item">
+                <div class="feature-label">04 / Hỗ trợ 24/7</div>
+                <div class="feature-title">Có vấn đề là có mặt</div>
+                Hỗ trợ xử lý sự cố, hướng dẫn đường đi, tư vấn lịch trình
+                ăn chơi – check-in.
+              </div>
+            </div>
+          </div>
+
+          <!-- Bảng giá -->
+          <div class="section-header" id="bang-gia" style="margin-top: 14px;">
+            <h2 class="section-title">Bảng giá tham khảo</h2>
+            <span class="section-tag">Hero Pricing Ultra</span>
+          </div>
+          <div class="section-body">
+            Giá có thể thay đổi theo mùa &amp; số lượng xe. Gọi
+            <strong>0845 622 012</strong> để cập nhật giá tốt nhất:
+            <div class="pricing-grid">
+              <div class="price-card">
+                <div class="price-chip">Gói phổ biến</div>
+                <div class="price-name">Xe số 1 ngày</div>
+                <div class="price-value">Từ 120k</div>
+                <div class="price-note">
+                  Bao gồm 02 nón bảo hiểm + 01 áo mưa, hỗ trợ bản đồ &amp;
+                  gợi ý địa điểm đẹp.
+                </div>
+                <div class="price-cta">📞 Gọi để đặt &amp; giữ xe.</div>
+              </div>
+              <div class="price-card">
+                <div class="price-chip">Di chuyển thoải mái</div>
+                <div class="price-name">Xe tay ga 1 ngày</div>
+                <div class="price-value">Từ 160k</div>
+                <div class="price-note">
+                  Xe ga đời mới, phù hợp đi cặp đôi, tham quan nhiều điểm
+                  trong ngày.
+                </div>
+                <div class="price-cta">
+                  💬 Nhắn Zalo để nhận hình xe thực tế.
+                </div>
+              </div>
+              <div class="price-card">
+                <div class="price-chip">Ở lâu – giá tốt</div>
+                <div class="price-name">Thuê dài ngày</div>
+                <div class="price-value">Liên hệ</div>
+                <div class="price-note">
+                  Giảm giá khi thuê từ 03 ngày trở lên, hỗ trợ thay xe nếu
+                  cần.
+                </div>
+                <div class="price-cta">🎯 Gọi: 0845 622 012</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quy trình -->
+          <div class="section-header" id="quy-trinh" style="margin-top: 14px;">
+            <h2 class="section-title">Quy trình đặt xe 3 bước</h2>
+            <span class="section-tag">Flow Ultra</span>
+          </div>
+          <div class="section-body">
+            Đặt xe qua mini-app Hữu Hào cực kỳ đơn giản:
+            <div class="steps-list">
+              <div class="step-item">
+                <div class="step-badge">1</div>
+                <div class="step-content">
+                  <strong>Gọi / nhắn 0845 622 012</strong>
+                  Báo thời gian nhận xe, loại xe (số / ga), số ngày thuê, số
+                  lượng người.
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-badge">2</div>
+                <div class="step-content">
+                  <strong>Xác nhận &amp; giữ xe</strong>
+                  Hữu Hào chốt thời gian – địa điểm giao xe, gửi hình xe
+                  thực tế cho bạn xem trước.
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-badge">3</div>
+                <div class="step-content">
+                  <strong>Nhận xe &amp; lên đường</strong>
+                  Kiểm tra xe nhanh, ký biên nhận, nhận chìa khoá là sẵn sàng
+                  khám phá.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cột phải: Thông tin nhanh, lưu ý, liên hệ -->
+        <aside class="section">
+          <div class="section-header">
+            <h2 class="section-title">Thông tin nhanh</h2>
+            <span class="section-tag">Quick Info Ultra</span>
+          </div>
+          <div class="section-body">
+            <div class="info-list">
+              <div class="info-item">
+                <strong>Giấy tờ cần có</strong>
+                CMND/CCCD bản gốc (hoặc đặt cọc tiền mặt tùy loại xe). Khách
+                du lịch nước ngoài có thể dùng hộ chiếu.
+              </div>
+              <div class="info-item">
+                <strong>Giờ nhận – trả xe</strong>
+                Linh hoạt trong khung 07:00 – 22:00. Trả trễ giờ có thể phụ
+                thu nhẹ, vui lòng báo trước.
+              </div>
+              <div class="info-item">
+                <strong>Xăng &amp; kiểm tra xe</strong>
+                Giao xe với mức xăng đủ đi lại trong khu vực. Bạn nên chụp
+                hình xe lúc nhận để yên tâm hơn.
+              </div>
+              <div class="info-item">
+                <strong>Tip an toàn</strong>
+                Luôn đội nón bảo hiểm, không chạy quá tốc độ, cẩn thận khi đi
+                đèo dốc &amp; trời mưa.
+              </div>
+            </div>
+
+            <div class="section-header" id="lien-he" style="margin-top: 14px;">
+              <h2 class="section-title">Liên hệ &amp; đặt xe</h2>
+              <span class="section-tag">Contact Ultra</span>
+            </div>
+
+            <div class="contact-grid">
+              <div class="contact-block">
+                <div class="contact-label">Hotline chính</div>
+                <div class="contact-main">
+                  Gọi / nhắn Zalo: <span>0845 622 012</span>
+                </div>
+                <div class="contact-sub">
+                  Nhắn tin trước khi đến để Hữu Hào chuẩn bị xe &amp; sắp
+                  xếp thời gian giao nhận thuận tiện nhất.
+                </div>
+                <div class="contact-phone">
+                  📞 <a href="tel:0845622012">Bấm để gọi ngay: 0845 622 012</a>
+                </div>
+              </div>
+
+              <div class="contact-block">
+                <div class="contact-label">Địa điểm &amp; bản đồ</div>
+                <div class="contact-main">
+                  Khu vực phục vụ: <span>trung tâm &amp; khu du lịch lân cận</span>
+                </div>
+                <div class="map-placeholder">
+                  🗺️ Chèn bản đồ Google Map tại đây (iframe) hoặc để link:
+                  <br />
+                  <em>“Xem đường đi &amp; vị trí trên Google Maps”</em>
+                  <br /><br />
+                  Khi triển khai thực tế, bạn thay khối này bằng mã nhúng
+                  map từ Google.
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <!-- CUỐI TRANG ULTRA -->
+      <footer class="footer-ultra">
+        <div class="footer-ultra-left">
+          <strong>Cho thuê xe máy Hữu Hào – Ultra Mini App</strong>
+          <span>Hotline: 0845 622 012 · Hỗ trợ 24/7 (trong giờ hoạt động)</span>
+        </div>
+        <div class="footer-ultra-right">
+          <div class="footer-chip">🛵 Xe số &amp; tay ga đời mới</div>
+          <div class="footer-chip">🛡️ Miễn phí nón bảo hiểm</div>
+          <div class="footer-chip">💬 Call / Zalo / Messenger</div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- QUICK-CALL ULTRA -->
+  <div class="quick-call-fab">
+    <a href="tel:0845622012" class="quick-call-btn">
+      📞 Gọi ngay
+      <span>0845 622 012</span>
+      <small>Đặt xe trong 30s</small>
+    </a>
+  </div>
+
+  <div class="quick-call-bar">
+    <div>
+      <strong>Đặt xe Hữu Hào</strong>
+      Gọi là có xe, giao tận nơi.
+    </div>
+    <a href="tel:0845622012">📞 Gọi 0845 622 012</a>
+  </div>
+
+  <!-- MINI JS: toggle menu & smooth scroll -->
+  <script>
+    // Toggle mobile menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navMobile = document.getElementById("navMobile");
+
+    if (menuToggle && navMobile) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = navMobile.style.display === "flex";
+        navMobile.style.display = isOpen ? "none" : "flex";
+      });
+
+      // Đóng menu khi click vào link
+      navMobile.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navMobile.style.display = "none";
+        });
+      });
+    }
+
+    // Smooth scroll cho anchor trong trang
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
